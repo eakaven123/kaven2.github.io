@@ -1,30 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	background-color: #12475f;
+	font-family: Arial;
+	background-color: darkgray;
 	color: #fff;
 	line-height: 1.6;
 	text-align: center;
 }
 
 h2 {
-    background-color: #e7db3e;
+    background-color: blue;
 }
 h1 {
-    color: blue;
+    color: pink;
   }
 
 #chart {
     display: inline-block;
-    margin-top: 20px;
 }
 
 .bar {
     fill: steelblue;
 }
 
-.emoji-container {
+.emojii {
     margin: 20px 0;
     font-size: 50px;
 }
@@ -33,4 +32,8 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+}
+
+#chartTwo {
+    margin-top: 20px;
 }
