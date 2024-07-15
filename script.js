@@ -1,3 +1,4 @@
+
 async function firstChart() {
     const data = await d3.csv("https://raw.githubusercontent.com/eakaven123/kaven2.github.io/main/2015.csv");
 
@@ -7,7 +8,7 @@ async function firstChart() {
         d => d.Region
     );
 
-    // rollup uses a mapping so each region has the average
+    // rollup uses a mapping so each region has the average happiness
     //souce on mapping after grouping https://observablehq.com/@d3/d3-group
     const regionData = Array.from(rollup, ([region, averageHappiness]) => ({ region, averageHappiness }));
 
@@ -18,6 +19,7 @@ async function firstChart() {
         .attr("height", 400)
         .append("g")
         .attr("transform", "translate(50,50)");
+        
 
   
     const x = d3.scaleBand()
@@ -39,6 +41,20 @@ async function firstChart() {
     svg.append("g")
         .call(d3.axisLeft(y));
 
+    
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -50)
+        .attr("x", -100)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("fill", "black")
+        .text("Average Happiness Score");
+
+    const maxHappy = d3.max(regionData, d => d.averageHappiness);
+    // const tooltip = d3.select("#tooltip");
+
     svg.selectAll("bar")
         .data(regionData)
         .enter()
@@ -48,6 +64,41 @@ async function firstChart() {
         .attr("width", x.bandwidth())
         .attr("height", d => 200 - y(d.averageHappiness))
         .attr("class", "bar")
+        .attr("fill", function(d) { 
+            if (d.averageHappiness === maxHappy) {
+                return "red";
+            } else {
+                return "steelblue";
+            }
+        });
+
+        const annotations = [
+            {
+                note: {
+                    label: regionData[2].region + " has the highest average happiness",  
+                    align: "middle",              
+                    wrap: 500,
+                    padding: 10,
+                    titleFontSize: 7,
+                    fontSize: 5
+
+                },
+                x: x(regionData[2].region) + x.bandwidth() / 2,       
+                y: y(regionData[2].averageHappiness),  
+                dy: -30,  
+                dx: 0                         
+            }
+        ];
+    
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations);
+    
+        svg.append("g")
+            .call(makeAnnotations);
+            // .selectAll("text")
+            // .style("font-size", "15px");
+
+    
 
 }
 
