@@ -52,8 +52,7 @@ async function firstChart() {
         .style("fill", "black")
         .text("Average Happiness Score");
 
-    const maxHappy = d3.max(regionData, d => d.averageHappiness);
-    // const tooltip = d3.select("#tooltip");
+    const maxHappy = d3.max(regionData, function(d){return d.averageHappiness;});
 
     svg.selectAll("bar")
         .data(regionData)
@@ -78,13 +77,13 @@ async function firstChart() {
                     label: regionData[2].region + " has the highest average happiness",  
                     align: "middle",              
                     wrap: 500,
-                    padding: 10,
+                    padding: 5,
                     titleFontSize: 7,
                     fontSize: 5
 
                 },
-                x: x(regionData[2].region) + x.bandwidth() / 2,       
-                y: y(regionData[2].averageHappiness),  
+                x: 180,       
+                y: 18,  
                 dy: -30,  
                 dx: 0                         
             }
@@ -95,8 +94,7 @@ async function firstChart() {
     
         svg.append("g")
             .call(makeAnnotations);
-            // .selectAll("text")
-            // .style("font-size", "15px");
+            
 
     
 

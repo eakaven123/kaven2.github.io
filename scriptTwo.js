@@ -12,7 +12,7 @@ async function secondChart() {
 
     const regionData = Array.from(regionGDP, ([region, { avgHappiness, avgGDP }]) => ({ region, avgHappiness, avgGDP }));
     const tooltip = d3.select("#tooltip");
-
+//https://htmlcolorcodes.com/colors/ this website was used to find colors for the scatter plot points
     const colors = ['steelblue', 'orange', 'mediumseagreen', 'crimson', 'purple', 'goldenrod', 'teal', 'sienna', 'orchid', 'cornflowerblue'];
 
     const svg = d3.select("#chartTwo")
@@ -56,10 +56,10 @@ async function secondChart() {
         .enter()
         .append("circle")
         .attr("class", "dot")
-        .attr("cx", d => x(d.avgGDP))
-        .attr("cy", d => y(d.avgHappiness))
+        .attr("cx", function(d){return x(d.avgGDP);})
+        .attr("cy", function(d){return y(d.avgHappiness);})
         .attr("r", 5)
-        .style("fill", (d, i) => colors[i])
+        .style("fill", function(d, i) {return colors[i];})
         .on("mouseover", function(event,d){
         tooltip.style("opacity", 1)
         .style("left", (event.pageX)+"px")
@@ -69,18 +69,10 @@ async function secondChart() {
         .on("mouseout", function(){tooltip.style("opacity", 0)});
 
     // Find the data point with the maximum happiness based on GDP
-    const maxHappy = d3.max(regionData, d => d.avgHappiness);
+    const maxHappy = d3.max(regionData, function(d,i) {return d.avgHappiness;});
     const maxHappyBox = regionData.find(d => d.avgHappiness === maxHappy);
 
-    // Draw a rectangle around the dot with the highest happiness. I played with the box sizes to get the box correclty
-    svg.append("rect")
-        .attr("x", x(maxHappyBox.avgGDP)-9 )
-        .attr("y", y(maxHappyBox.avgHappiness)-9)
-        .attr("width", 17)
-        .attr("height", 17)
-        .style("stroke", "black")
-        .style("fill", "none")
-        .style("stroke-width", 2);
+   
 
     //legend
     svg.selectAll(".legend-dot")

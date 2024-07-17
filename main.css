@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 body {
-	font-family: Arial;
+
 	background-color: lightgray;
 	color: black;
 	line-height: 1.6;
 	text-align: center;
 }
 
-h2 {
-    background-color: blue;
-}
+
+
 h1 {
     color: darksalmon;
   }
@@ -24,6 +23,7 @@ h1 {
 .emojii {
     margin: 20px 0;
     font-size: 50px;
+  
 }
 
 
@@ -57,5 +57,10 @@ h1 {
     background: white;
   
     font-size: 10px;
+}
+
+h4 {
+    margin: 10px 0;
+    font-weight: normal; 
 }
 
