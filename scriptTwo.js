@@ -72,7 +72,38 @@ async function secondChart() {
     const maxHappy = d3.max(regionData, function(d,i) {return d.avgHappiness;});
     const maxHappyBox = regionData.find(d => d.avgHappiness === maxHappy);
 
-   
+    // Draw a rectangle around the dot with the highest happiness. I played with the box sizes to get the box correclty
+    svg.append("rect")
+        .attr("x", x(maxHappyBox.avgGDP)-9 )  //played with these values until the box fit
+        .attr("y", y(maxHappyBox.avgHappiness)-9)
+        .attr("width", 17)
+        .attr("height", 17)
+        .style("stroke", "black")
+        .style("fill", "none")
+        .style("stroke-width", 2);
+
+    const annotations = [
+        {note: {
+                label: "Highest average happiness",
+                align: "middle",
+                wrap: 200,
+                padding: 5,
+                titleFontSize: 12,
+                fontSize: 10
+            },
+            x: 602,
+            y: 10,
+            dy: -20,
+            dx: 0
+        }];
+
+    const makeAnnotations = d3.annotation()
+        .annotations(annotations);
+
+    svg.append("g")
+        .call(makeAnnotations);
+
+    
 
     //legend
     svg.selectAll(".legend-dot")

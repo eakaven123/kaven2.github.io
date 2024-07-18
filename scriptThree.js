@@ -76,12 +76,45 @@ svg.append("text")
     .text("Family Score");
 
    
+    
+
+   
 
     function updatePlot(region) {
         if (region === "All") {
             filteredData = formattedData;
+           
+            svg.append("line")
+                .attr("x1", 0)
+                .attr("y1", 350)
+                .attr("x2", 550)
+                .attr("y2", 5)
+                .attr("stroke", "red")
+                .attr("stroke-width", 2);
+
+                const annotations = [
+                    {note: {
+                            label: "Linearly increasing trend",
+                            align: "middle",
+                            wrap: 200,
+                            padding: 5
+                        },
+                        x: 275,
+                        y: 175,
+                        dy: -100,
+                        dx: 0,
+                        subject: { radius: 3 }
+                    }];
+        
+                const makeAnnotations = d3.annotation()
+                    .annotations(annotations);
+            
+                svg.append("g")
+                    .call(makeAnnotations);
         } else {
             filteredData = formattedData.filter(d => d.Region === region); 
+            svg.selectAll(".annotation").remove()
+            svg.selectAll("line").remove();
         }
 
         

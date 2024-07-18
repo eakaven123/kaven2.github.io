@@ -54,16 +54,15 @@ async function firstChart() {
 
     const maxHappy = d3.max(regionData, function(d){return d.averageHappiness;});
 
-    svg.selectAll("bar")
-        .data(regionData)
-        .enter()
-        .append("rect")
-        .attr("x", function(d,i) {return  x(d.region);})
-        .attr("y", function(d,i) {return y(d.averageHappiness); })
-        .attr("width", x.bandwidth())
-        .attr("height", d => 200 - y(d.averageHappiness))
-        .attr("class", "bar")
-        .attr("fill", function(d) { 
+    svg.selectAll(".dot")
+    .data(regionData)
+    .enter()
+    .append("circle")
+    .attr("class", "dot")
+    .attr("cx", d => x(d.region) + x.bandwidth() / 2)
+    .attr("cy", d => y(d.averageHappiness))
+    .attr("r", 9)
+    .attr("fill", function(d) { 
             if (d.averageHappiness === maxHappy) {
                 return "red";
             } else {
@@ -86,8 +85,7 @@ async function firstChart() {
                 y: 18,  
                 dy: -30,  
                 dx: 0                         
-            }
-        ];
+            }];
     
         const makeAnnotations = d3.annotation()
             .annotations(annotations);
